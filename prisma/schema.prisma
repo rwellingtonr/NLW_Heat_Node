@@ -1,0 +1,11 @@
+// This is your Prisma schema file,
+
+// in the first time will create this file .dev.db, where will be all the database
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db" 
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
