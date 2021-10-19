@@ -3,9 +3,15 @@ import { AuthenticateUserService } from "../services/AuthenticateUserService"
 
 class AuthenticateUserController {
   async handle(req: Request, resp: Response) {
-    // instancing the service
+    // Grab the code from the body
+    const { code } = req.body
+
+    // instancing the Service Authenticator
     const service = new AuthenticateUserService()
-    // service.execute()
+    // Run it
+    const result = await service.execute(code)
+
+    return resp.json(result)
   }
 }
 
