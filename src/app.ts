@@ -13,6 +13,12 @@ app.get("/github", (req, res) => {
   )
 })
 
+app.get("/signin/callback", (req, res) => {
+  // Axis code
+  const { code } = req.query
+  return res.json(code)
+})
+
 app.listen(PORT, () => {
   console.log(`hello, listen to port: ${PORT}`)
 })
