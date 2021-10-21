@@ -3,9 +3,21 @@
 // in the first time will create this file .dev.db, where will be all the database
 datasource db {
   provider = "sqlite"
-  url      = "file:./dev.db" 
+  url      = "file:./dev.db"
 }
 
 generator client {
   provider = "prisma-client-js"
+}
+
+// It'll be my user's table
+model User {
+  id         String @id @default(uuid())
+  name       String
+  github_id  Int
+  avatar_url String
+  login      String
+  // table name
+
+  @@map("users")
 }
