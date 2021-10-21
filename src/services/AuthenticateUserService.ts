@@ -47,6 +47,11 @@ class AuthenticateUserService {
       },
     })
 
+    // Check up whether or not the user had been created
+    const { login, id, name, avatar_url } = response.data
+
+    // const user = await
+
     return response.data
   }
 }
