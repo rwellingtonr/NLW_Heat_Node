@@ -8,10 +8,14 @@ class AuthenticateUserController {
 
     // instancing the Service Authenticator
     const service = new AuthenticateUserService()
-    // Run it
-    const result = await service.execute(code)
+    try {
+      // Run it
+      const result = await service.execute(code)
 
-    return resp.json(result)
+      return resp.json(result)
+    } catch (e) {
+      return resp.json({ error: e.message })
+    }
   }
 }
 
