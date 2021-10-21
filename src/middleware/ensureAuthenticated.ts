@@ -1,6 +1,10 @@
 import { Request, Response, NextFunction } from "express"
 import { verify } from "jsonwebtoken"
 
+interface IPayload {
+  sub: string
+}
+
 // It must check if the user is authenticated
 export default function ensureAuthenticated(
   req: Request,
@@ -21,8 +25,11 @@ export default function ensureAuthenticated(
    */
   const [, token] = authToken.split(" ")
   try {
-    const { sub } = verify(token, process.env.JWT_SECRET)
+    // the verification will return a type equals as IPayload
+    const { sub } = verify(token, process.env.JWT_SECRET) as IPayload
     req.user_id = sub
+    // pass these values to other classes
+    return next()
   } catch (error) {
     resp.status(401).json({ errorCode: "token;expired" })
   }
