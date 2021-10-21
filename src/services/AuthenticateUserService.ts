@@ -1,12 +1,12 @@
 import axios from "axios"
-
+import prismaClient from "../../prisma"
 /*
- * Receive the code (string)
- * Recover the access_token on GitHub
- * Recover user's info on GitHub
- * check whether the user already exist on DB,
- *  TRUE = Generate the token
- *  FALSE = Create on DB and generate a new token
+ * Receive the code (string) (done)
+ * Recover the access_token on GitHub (done)
+ * Recover user's info on GitHub (done)
+ * check whether the user already exist on DB, (done)
+ *  TRUE = Generate the token (done)
+ *  FALSE = Create on DB and generate a new token (done)
  * Return the token with the use's info
  */
 
@@ -49,8 +49,19 @@ class AuthenticateUserService {
 
     // Check up whether or not the user had been created
     const { login, id, name, avatar_url } = response.data
-
-    // const user = await
+    // compare the GitHub id with the ID
+    let user = await prismaClient.user.findFirst({ where: { github_id: id } })
+    // If the user doesn't exist yet, then I'll create this one
+    if (!user) {
+      user = await prismaClient.user.create({
+        data: {
+          github_id: id,
+          login,
+          avatar_url,
+          name,
+        },
+      })
+    }
 
     return response.data
   }
