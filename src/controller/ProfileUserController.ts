@@ -1,6 +1,8 @@
 import { Request, Response } from "express"
 import { ProfileUserService } from "../services/ProfileUserService"
 
+// Return the user profile
+
 class ProfileUserController {
   async handle(req: Request, resp: Response) {
     const { user_id } = req.body
