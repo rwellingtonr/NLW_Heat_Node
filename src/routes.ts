@@ -16,6 +16,6 @@ router.post(
   new CreateMessageController().handle
 )
 
-router.post("/messages/last3", new GetLast3MessagesController().handle)
+router.get("/messages/last3", new GetLast3MessagesController().handle)
 
 export { router }
