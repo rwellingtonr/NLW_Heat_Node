@@ -19,5 +19,20 @@ model User {
   login      String
   // table name
 
+  messages Message[]
   @@map("users")
+}
+
+model Message {
+  // parameters
+  id        String   @id @default(uuid())
+  text      String
+  create_at DateTime @default(now())
+
+  // the relational between User's table and Message on
+  user User @relation(fields: [user_id], references: [id])
+
+  // table name
+  user_id String
+  @@map("messages")
 }
