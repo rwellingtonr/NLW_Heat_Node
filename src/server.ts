@@ -1,7 +1,7 @@
-import { serverHttp } from "./app"
+import { serverHttp } from "./app";
 
-const PORT = 4000
+const { PORT } = process.env;
 
 serverHttp.listen(PORT, () => {
-  console.log(`hello, listen to port: ${PORT}`)
-})
+  console.log(`hello, listen to port: ${PORT}`);
+});

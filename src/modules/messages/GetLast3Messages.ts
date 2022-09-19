@@ -1,4 +1,4 @@
-import prismaClient from "../../prisma"
+import prismaClient from "../../../prisma";
 
 class GetLast3Messages {
   async execute() {
@@ -10,12 +10,12 @@ class GetLast3Messages {
       include: {
         user: true,
       },
-    })
+    });
 
     // SELECT * FROM MESSAGE LIMIT 3 ORDER BY CREATED_AT DESCENDING
 
-    return messages
+    return messages;
   }
 }
 
-export { GetLast3Messages }
+export { GetLast3Messages };

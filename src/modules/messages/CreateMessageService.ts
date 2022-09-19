@@ -1,12 +1,12 @@
-import { PrismaClient } from "@prisma/client"
-import prismaClient from "../../prisma"
-import { io } from "../app"
+import { PrismaClient } from "@prisma/client";
+import prismaClient from "../../../prisma";
+import { io } from "../../app";
 class CreateMessageService {
   async execut(text: string, user_id: string) {
     const message = await prismaClient.message.create({
       data: { text, user_id },
       include: { user: true },
-    })
+    });
 
     const infoWS = {
       text: message.text,
@@ -16,13 +16,13 @@ class CreateMessageService {
         name: message.user.name,
         avatar_url: message.user.avatar_url,
       },
-    }
+    };
 
     // Send the new event
-    io.emit("new_message", infoWS)
+    io.emit("new_message", infoWS);
 
-    return message
+    return message;
   }
 }
 
-export { CreateMessageService }
+export { CreateMessageService };
