@@ -3,6 +3,7 @@ import prismaClient from "../../../prisma";
 import { sign } from "jsonwebtoken";
 import { IUserRepository } from "../../repositories/user/IUserRepository";
 import { IGitHubProvider } from "../../provider/IGithubProvider";
+import { generateToken } from "../../utils/jsonwebtoken";
 /*
  * Receive the code (string) (done)
  * Recover the access_token on GitHub (done)
@@ -16,7 +17,7 @@ export class AuthenticateUserService {
   constructor(private userRepository: IUserRepository, private githubProvider: IGitHubProvider) {}
   async execute(code: string) {
     // Get the access token
-    // in the axiso token you might define which data it should've in the return
+    // in the axios token you might define which data it should've in the return
     const accessToken = await this.githubProvider.validateToken(code);
     // Get the user's data on GitHub
     const { login, id, name, avatar_url } = await this.githubProvider.getUser(accessToken);
@@ -32,17 +33,7 @@ export class AuthenticateUserService {
       });
     }
     // Authentication token
-    const token = sign(
-      {
-        user: {
-          name: user.name,
-          avatar_url: user.avatar_url,
-          id: user.id,
-        },
-      },
-      process.env.JWT_SECRET,
-      { subject: user.id, expiresIn: "1d" }
-    );
+    const token = generateToken(user.id);
 
     return { token, user };
   }
