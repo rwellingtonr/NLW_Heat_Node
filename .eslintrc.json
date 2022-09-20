@@ -12,7 +12,7 @@
   },
   "plugins": ["@typescript-eslint"],
   "rules": {
-    "semi": "off",
+    "semi": "warn",
     "quotes": ["error", "double"],
     "no-self-assign": "error",
     "no-func-assign": "error",

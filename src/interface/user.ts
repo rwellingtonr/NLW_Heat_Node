@@ -1,7 +1,7 @@
 import { IMessage } from "./message";
 
 export interface IUser {
-  id: string;
+  id?: string;
   name: string;
   github_id: number;
   avatar_url: string;

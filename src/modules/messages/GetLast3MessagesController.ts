@@ -1,13 +1,15 @@
 import { Request, Response } from "express";
-import { GetLast3Messages } from "../modules/messages/GetLast3Messages";
+import { IMessageService } from "./IMessageService";
 
-class GetLast3MessagesController {
-  async handle(req: Request, resp: Response) {
-    const service = new GetLast3Messages();
-    const result = await service.execute();
+export class GetLast3MessagesController {
+  constructor(private readonly messageService: IMessageService) {}
+  async handle(req: Request, res: Response) {
+    try {
+      const result = await this.messageService.getLast3Messages();
 
-    return resp.json(result);
+      return res.status(200).json(result);
+    } catch (err) {
+      return res.status(err.statusCode || 400);
+    }
   }
 }
-
-export { GetLast3MessagesController };

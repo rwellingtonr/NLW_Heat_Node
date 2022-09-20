@@ -1,13 +1,10 @@
-import prismaClient from "../../../prisma";
+import { IUserRepository } from "../../repositories/user/IUserRepository";
 
-class ProfileUserService {
-  async execute(user_id: string) {
-    const user = await prismaClient.user.findFirst({
-      where: { id: user_id },
-    });
+export class ProfileUserService {
+  constructor(private readonly userRepository: IUserRepository) {}
+  async execute(userId: string) {
+    const user = this.userRepository.findById(userId);
 
     return user;
   }
 }
-
-export { ProfileUserService };

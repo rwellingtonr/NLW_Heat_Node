@@ -1,5 +1,7 @@
 import { IUser } from "../../interface/user";
 
 export interface IUserRepository {
-  findOne(id: number): Promise<IUser>;
+  findOneByGithub(id: number): Promise<IUser>;
+  findById(id: string): Promise<IUser>;
+  create(user: IUser): Promise<IUser>;
 }

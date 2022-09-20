@@ -21,20 +21,16 @@ export class AuthenticateUserService {
     // Get the user's data on GitHub
     const { login, id, name, avatar_url } = await this.githubProvider.getUser(accessToken);
     // compare the GitHub id with the ID
-    await this.userRepository.findOne(id);
-    let user = await prismaClient.user.findFirst({ where: { github_id: id } });
+    let user = await this.userRepository.findOneByGithub(id);
     // If the user doesn't exist yet, then I'll create this one
     if (!user) {
-      user = await prismaClient.user.create({
-        data: {
-          github_id: id,
-          login,
-          avatar_url,
-          name,
-        },
+      user = await this.userRepository.create({
+        github_id: id,
+        login,
+        avatar_url,
+        name,
       });
     }
-
     // Authentication token
     const token = sign(
       {

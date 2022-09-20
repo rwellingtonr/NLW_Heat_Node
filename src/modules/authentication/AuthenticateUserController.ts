@@ -12,9 +12,9 @@ export class AuthenticateUserController {
       // Run it
       const result = await this.authenticateUserService.execute(code);
 
-      return res.json(result);
+      return res.status(200).json(result);
     } catch (e) {
-      return res.json({ error: e.message });
+      return res.status(e.statusCode || 400).json({ error: e.message });
     }
   }
 }
