@@ -1,12 +1,12 @@
 {
   "name": "nlw2021",
   "version": "1.0.0",
-  "type": "module",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "vitest",
-    "dev": "ts-node-dev --exit-child src/server.ts",
+    "test:load": "yarn autocannon -c 200 -d 15 -l --warmup [ -c 2 -d 5 ] --renderStatusCodes localhost:4000/test",
+    "dev": "ts-node-dev --rs --exit-child -- src/server.ts",
     "build": "rm -rf dist && tsc -p tsconfig.json",
     "format": "prettier --write \"src/**/*.ts\" && yarn lint",
     "lint": "eslint \"src/**/*.ts\" --fix"
@@ -16,6 +16,7 @@
   "license": "ISC",
   "dependencies": {
     "@prisma/client": "^3.2.1",
+    "autocannon": "^7.9.0",
     "axios": "^0.27.2",
     "cors": "^2.8.5",
     "dotenv": "^16.0.2",
