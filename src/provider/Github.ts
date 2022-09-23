@@ -1,4 +1,5 @@
 import axios from "axios";
+import logger from "../utils/logger";
 import { IGitHubProvider, IAccessTokenResponse, IUserResponse } from "./IGithubProvider";
 
 export default class GithubProvider implements IGitHubProvider {
@@ -14,7 +15,7 @@ export default class GithubProvider implements IGitHubProvider {
       });
       return data.access_token;
     } catch (err) {
-      console.error(err);
+      logger.error(err);
       return;
     }
   }

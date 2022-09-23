@@ -1,4 +1,3 @@
-// Importing the Liberys
 import "dotenv/config";
 import "express-async-errors";
 import "./middleware/gracefulShutdown";
@@ -7,9 +6,9 @@ import http from "http";
 import morgan from "morgan";
 import errorHandling from "./middleware/errorHandling";
 import cors from "cors";
+import logger from "./utils/logger";
 import router from "./router";
 import { Server, Socket } from "socket.io";
-import logger from "./utils/logger";
 
 // Create app express
 const app = express();
