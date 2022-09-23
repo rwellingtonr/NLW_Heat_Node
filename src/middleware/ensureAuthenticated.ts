@@ -1,5 +1,4 @@
 import { Request, Response, NextFunction } from "express";
-import { verify } from "jsonwebtoken";
 import { verifyToken } from "../utils/jsonwebtoken";
 
 interface IPayload {
@@ -22,6 +21,6 @@ export default function ensureAuthenticated(req: Request, res: Response, next: N
     // pass these values to other classes
     return next();
   } catch (error) {
-    return res.status(401).json({ errorCode: "token;expired" });
+    return res.status(401).json({ errorCode: "token expired" });
   }
 }

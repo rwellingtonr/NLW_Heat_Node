@@ -1,6 +1,3 @@
-import axios from "axios";
-import prismaClient from "../../../prisma";
-import { sign } from "jsonwebtoken";
 import { IUserRepository } from "../../repositories/user/IUserRepository";
 import { IGitHubProvider } from "../../provider/IGithubProvider";
 import { generateToken } from "../../utils/jsonwebtoken";
