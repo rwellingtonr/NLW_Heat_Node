@@ -1,33 +1,47 @@
 {
   "name": "nlw2021",
   "version": "1.0.0",
-  "type": "module",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "ts-node-dev --exit-child src/server.ts"
+    "test": "vitest",
+    "test:load": "yarn autocannon -c 200 -d 15 -l --warmup [ -c 2 -d 5 ] --renderStatusCodes localhost:4000/test",
+    "dev": "ts-node-dev --rs --exit-child -- src/server.ts",
+    "build": "rm -rf dist && tsc -p tsconfig.json",
+    "format": "prettier --write \"src/**/*.ts\" && yarn lint",
+    "lint": "eslint \"src/**/*.ts\" --fix"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@prisma/client": "^3.2.1",
-    "axios": "^0.23.0",
+    "autocannon": "^7.9.0",
+    "axios": "^0.27.2",
     "cors": "^2.8.5",
-    "dotenv": "^10.0.0",
-    "express": "^4.17.1",
+    "dotenv": "^16.0.2",
+    "express": "^4.18.1",
+    "express-async-errors": "^3.1.1",
     "jsonwebtoken": "^8.5.1",
+    "log4js": "^6.6.1",
+    "morgan": "^1.10.0",
     "socket.io": "^4.3.1"
   },
   "devDependencies": {
     "@types/axios": "^0.14.0",
     "@types/cors": "^2.8.12",
-    "@types/express": "^4.17.13",
-    "@types/jsonwebtoken": "^8.5.5",
+    "@types/express": "^4.17.14",
+    "@types/jsonwebtoken": "^8.5.9",
+    "@types/log4js": "^2.3.5",
+    "@types/morgan": "^1.9.3",
     "@types/socket.io": "^3.0.2",
+    "@typescript-eslint/eslint-plugin": "^5.37.0",
+    "@typescript-eslint/parser": "^5.37.0",
+    "eslint": "^8.23.1",
+    "prettier": "^2.7.1",
     "prisma": "^3.2.1",
-    "ts-node-dev": "^1.1.8",
-    "typescript": "^4.4.4"
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^4.4.4",
+    "vitest": "^0.23.4"
   }
 }

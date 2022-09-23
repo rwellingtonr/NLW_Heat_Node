@@ -1,36 +1,26 @@
-import { Request, Response, NextFunction } from "express"
-import { verify } from "jsonwebtoken"
+import { Request, Response, NextFunction } from "express";
+import { verifyToken } from "../utils/jsonwebtoken";
 
 interface IPayload {
-  sub: string
+  userId: string;
 }
 
 // It must check if the user is authenticated
-export default function ensureAuthenticated(
-  req: Request,
-  resp: Response,
-  next: NextFunction
-) {
-  const authToken = req.headers.authorization
+export default function ensureAuthenticated(req: Request, res: Response, next: NextFunction) {
+  const authToken = req.headers.authorization;
   if (!authToken) {
-    return resp.status(401).json({
-      errorCode: "token.invalid",
-    })
+    return res.status(401).json({
+      errorCode: "Must provide a valid token!",
+    });
   }
-
-  /*
-   * Bearer token (a4d64asd4a4f56asf8sd)
-   * Fist posistion: bearer
-   * Second position: token value
-   */
-  const [, token] = authToken.split(" ")
+  const [, token] = authToken.split(" ");
   try {
     // the verification will return a type equals as IPayload
-    const { sub } = verify(token, process.env.JWT_SECRET) as IPayload
-    req.user_id = sub
+    const payload = verifyToken(token) as IPayload;
+    req.user_id = payload.userId;
     // pass these values to other classes
-    return next()
+    return next();
   } catch (error) {
-    resp.status(401).json({ errorCode: "token;expired" })
+    return res.status(401).json({ errorCode: "token expired" });
   }
 }
