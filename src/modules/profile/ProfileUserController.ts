@@ -12,7 +12,7 @@ export class ProfileUserController {
 
       return res.json(result);
     } catch (err) {
-      return res.status(err.statusCode || 400);
+      return res.status(404);
     }
   }
 }
